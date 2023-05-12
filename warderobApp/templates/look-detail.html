@@ -1,0 +1,104 @@
+{% extends './base.html' %}
+
+{% block title %}{{ look.lookName }}{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="a-block">
+    <div class="container">
+        <h2 class="primary-title">{{ look.lookName }}</h2>
+        <p><a href="{% url 'looksPage' %}">Артқа қайту</a> > {{ look.lookName }}</p>
+        <div class="row">
+            <div class="col s12 m6 l5">
+                <img src="{{ look.lookFullPhoto.url }}" alt="">
+                <div class="actions">
+                    <form method="post" action="{% url 'toggle_favorite' pk=look.pk %}">
+                        {% csrf_token %}
+                        {% if favorited %}
+                        <button data-id="{{ look.pk }}" class="favorite-btn btn-large waves-effect waves-light red lighten-2"><i class="material-icons">delete</i></button>
+                        {% else %}
+                        <button data-id="{{ look.pk }}" class="favorite-btn btn-large waves-effect waves-light red lighten-2"><i class="material-icons">thumb_up</i></button>
+                        {% endif %}
+                        <span class="badge">{{ favorite_count }}</span>
+                    </form>
+                </div>
+            </div>
+            <div class="col s12 m6 l7">
+                <h4>Сипаттамасы</h4>
+                <p style="text-align: justify;">{{ look.description }}</p>
+                <h4>{{ look.lookName }}</h4>
+                <div class="row">
+                    {% if look.head and look.headLink %}
+                    <div class="col s3">
+                        <a href="{{ look.headLink }}" target="_blank"><img width="100%" src="{{ look.head.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if look.eyes and look.eyesLink %}
+                    <div class="col s3">
+                        <a href="{{ look.eyesLink }}" target="_blank"><img width="100%" src="{{ look.eyes.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if look.top1 and look.top1Link %}
+                    <div class="col s3">
+                        <a href="{{ look.top1Link }}" target="_blank"><img width="100%" src="{{ look.top1.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if look.top2 and look.top2Link %}
+                    <div class="col s3">
+                        <a href="{{ look.top2Link }}" target="_blank"><img width="100%" src="{{ look.top2.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if look.hands and look.handsLink %}
+                    <div class="col s3">
+                        <a href="{{ look.handsLink }}" target="_blank"><img width="100%" src="{{ look.hands.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if look.bottom1 and look.bottom1Link %}
+                    <div class="col s3">
+                        <a href="{{ look.bottom1Link }}" target="_blank"><img width="100%" src="{{ look.bottom1.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if look.bottom2 and look.bottom2Link %}
+                    <div class="col s3">
+                        <a href="{{ look.bottom2Link }}" target="_blank"><img width="100%" src="{{ look.bottom2.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if look.shoes and look.shoesLink %}
+                    <div class="col s3">
+                        <a href="{{ look.shoesLink }}" target="_blank"><img width="100%" src="{{ look.shoes.url }}"></a>
+                    </div>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="a-block" style="padding: 90px 0;">
+    <div class="card red lighten-3" style="width: 50%; margin-top: 90px; margin-bottom: 90px; margin: 0 auto;">
+    <div class="card-content">
+        <p class="grey-text text-darken-4" style="font-size: 14px;">
+            Қосымшамен жұмыс істеу үшін, тіркеліңіз немесе кіріңіз
+        </p>
+    </div>
+</div>
+</div>
+{% endif %}
+{% endblock %}

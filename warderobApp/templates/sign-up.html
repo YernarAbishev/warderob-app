@@ -1,0 +1,23 @@
+{% extends './base.html' %}
+{% load materializecss %}
+
+{% block title %}Тіркелу{% endblock %}
+
+{% block content %}
+<style>
+    p,{
+       display: none;
+    }
+</style>
+    <div class="a-block" style="padding: 60px 0;">
+        <div class="container">
+            <h2 class="primary-title">Қосымшаға тіркелу</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|materializecss }}
+
+                <button class="btn waves-effect waves-light blue lighten-2">Тіркелу</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

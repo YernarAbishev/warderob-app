@@ -1,0 +1,105 @@
+{% load static %}
+<!doctype html>
+<html lang="kz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <link rel="stylesheet" href="{% static './css/materialize.min.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<style>
+    input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #64B5F6;
+        -webkit-box-shadow: 0 1px 0 0 #64B5F6;
+        box-shadow: 0 1px 0 0 #64B5F6;
+    }
+    input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+        color: #64B5F6;
+    }
+</style>
+
+
+<body>
+    <header>
+        <nav class="grey darken-3">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">wardrobe</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="{% url 'homePage' %}">Басты бет</a></li>
+                        <li><a href="{% url 'looksPage' %}">Гардероб</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'userProfilePage' %}" class="btn waves-effect waves-light blue lighten-2"><i
+                                    class="material-icons left">account_circle</i> Профиль</a></li>
+                        <li><a href="{% url 'logoutUser' %}" class="btn waves-effect waves-light red lighten-2"><i
+                                    class="material-icons left">exit_to_app</i> Шығу</a></li>
+                        {% else %}
+                        <li><a href="{% url 'loginPage' %}">Кіру</a></li>
+                        <li><a href="{% url 'signUp' %}" class="btn waves-effect waves-light blue lighten-2"><i
+                                    class="material-icons left">person_add</i> Тіркелу</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="{% url 'homePage' %}">Басты бет</a></li>
+            <li><a href="{% url 'looksPage' %}">Гардероб</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'userProfilePage' %}" class="btn waves-effect waves-light blue lighten-2"><i
+                    class="material-icons left">account_circle</i> Профиль</a></li>
+            <li><a href="{% url 'logoutUser' %}" class="btn waves-effect waves-light red lighten-2"><i
+                    class="material-icons left">exit_to_app</i> Шығу</a></li>
+            {% else %}
+            <li><a href="{% url 'loginPage' %}">Кіру</a></li>
+            <li><a href="{% url 'signUp' %}" class="btn waves-effect waves-light blue lighten-2"><i
+                    class="material-icons left">person_add</i> Тіркелу</a></li>
+            {% endif %}
+        </ul>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="page-footer grey darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">wardrobe</h5>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="{% url 'homePage' %}">Басты бет</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a class="grey-text text-lighten-3" href="{% url 'looksPage' %}">Гардероб</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{% url 'userProfilePage' %}">Профиль</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{% url 'logoutUser' %}">Шығу</a></li>
+                        {% else %}
+                        <li><a class="grey-text text-lighten-3" href="{% url 'signUp' %}">Тіркелу</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{% url 'loginPage' %}">Кіру</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2023 Copyright
+                <a class="grey-text text-lighten-4 right" href="#"></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="{% static './js/jquery.min.js' %}"></script>
+    <script src="{% static './js/materialize.min.js' %}"></script>
+    <script src="{% static './js/materialize-jquery.js' %}"></script>
+</body>
+</html>

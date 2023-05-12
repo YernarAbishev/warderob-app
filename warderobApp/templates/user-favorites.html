@@ -1,0 +1,113 @@
+{% extends './base.html' %}
+
+{% block title %}Таңдаулылар{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+<style>
+    .card .card-image img {
+        width: 100%;
+        height: 400px;
+        object-fit:cover;
+    }
+</style>
+    <div class="a-block">
+        <div class="container">
+            <h2 class="primary-title">Менің таңдауларым</h2>
+            <div class="row">
+                {% for favorite in favorites %}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{{ favorite.look.lookFullPhoto.url }}">
+                            <form method="post" action="{% url 'toggle_unfavorite' pk=favorite.look.pk %}">
+                                {% csrf_token %}
+                                {% if not favorited %}
+                                <button onclick="M.toast({html: 'Таңдаулыдан жойылды'})" data-id="{{ look.pk }}" class="favorite-btn btn-floating btn-large halfway-fab waves-effect waves-light red lighten-2"><i class="material-icons">delete</i></button>
+                                {% endif %}
+                                <span class="badge">{{ favorite_count }}</span>
+                            </form>
+                        </div>
+                        <div class="card-content">
+                            <h5 style="margin-bottom: 30px;">{{ favorite.look.lookName }}</h5>
+                            <div class="row">
+                                {% if favorite.look.head and favorite.look.headLink %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.headLink }}" target="_blank"><img width="100%" src="{{ favorite.look.head.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                                {% if favorite.look.eyes and favorite.look.eyesLink %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.eyesLink }}" target="_blank"><img width="100%" src="{{ favorite.look.eyes.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                                {% if favorite.look.top1 and favorite.look.top1Link %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.top1Link }}" target="_blank"><img width="100%" src="{{ favorite.look.top1.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                                {% if favorite.look.top2 and favorite.look.top2Link %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.top2Link }}" target="_blank"><img width="100%" src="{{ favorite.look.top2.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                                {% if favorite.look.hands and favorite.look.handsLink %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.handsLink }}" target="_blank"><img width="100%" src="{{ favorite.look.hands.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                                {% if favorite.look.bottom1 and favorite.look.bottom1Link %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.bottom1Link }}" target="_blank"><img width="100%" src="{{ favorite.look.bottom1.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                                {% if favorite.look.bottom2 and favorite.look.bottom2Link %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.bottom2Link }}" target="_blank"><img width="100%" src="{{ favorite.look.bottom2.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                                {% if favorite.look.shoes and favorite.look.shoesLink %}
+                                <div class="col s3">
+                                    <a href="{{ favorite.look.shoesLink }}" target="_blank"><img width="100%" src="{{ favorite.look.shoes.url }}"></a>
+                                </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-action">
+                          <a href="{% url 'lookDetailPage' pk=favorite.look.pk %}" class="btn waves-effect waves-light blue lighten-2"><i class="material-icons left">remove_red_eye</i> Көру</a>
+                        </div>
+                      </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% else %}
+<div class="a-block" style="padding: 90px 0;">
+    <div class="card red lighten-3" style="width: 50%; margin-top: 90px; margin-bottom: 90px; margin: 0 auto;">
+    <div class="card-content">
+        <p class="grey-text text-darken-4" style="font-size: 14px;">
+            Қосымшамен жұмыс істеу үшін, тіркеліңіз немесе кіріңіз
+        </p>
+    </div>
+</div>
+</div>
+{% endif %}
+{% endblock %}

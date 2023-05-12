@@ -1,0 +1,57 @@
+{% extends './base.html' %}
+
+{% block title %}Басты бет{% endblock %}
+
+{% block content %}
+<style>
+    .card .card-image img {
+        width: 100%;
+        height: 400px;
+        object-fit:cover;
+    }
+</style>
+    <div class="main-content">
+        <div class="container">
+            {% if messages %}
+            <div class="card blue lighten-3" style="width: 50%; margin: 0 auto;">
+                <div class="card-content">
+                    <p class="grey-text text-darken-4" style="font-size: 14px;">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            <h1 class="title">wardrobe</h1>
+            <p>Сіздің жеке гардеробыңыз бір қосымшада. Қараңыз және шабыт алыңыз. Сәнді образдар осында.</p>
+            <a href="{% url 'looksPage' %}" class="btn waves-effect waves-light blue lighten-2"><i class="material-icons left">pageview</i> Қарау</a>
+            <a id="mob" class="btn waves-effect waves-light green accent-2"><i class="material-icons left">android</i> Жүктеу</a>
+        </div>
+    </div>
+
+    <div class="block">
+        <div class="container">
+            <h2 class="primary-title">Танымал образдар</h2>
+            <div class="row">
+                {% for look in looks %}
+                {% if look.isPopular %}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-image">
+                          <img class="img" src="{{ look.lookFullPhoto.url }}">
+                        </div>
+                        <div class="card-action">
+                            <a href="{% url 'lookDetailPage' pk=look.pk %}" class="btn waves-effect waves-light blue lighten-2"><i class="material-icons left">remove_red_eye</i> Көру</a>
+                        </div>
+                      </div>
+                </div>
+                {% else %}
+                <span></span>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

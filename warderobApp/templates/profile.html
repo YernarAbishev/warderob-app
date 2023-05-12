@@ -1,0 +1,41 @@
+{% extends './base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="a-block">
+        <div class="container">
+            <h2 class="primary-title">Профиль</h2>
+            <p><a href="{% url 'looksPage' %}">Артқа қайту</a> > Профиль</p>
+            <div class="card">
+                <div class="card-content">
+                    <img src="https://cdn4.iconfinder.com/data/icons/round-buttons/512/red_user.png" width="128px" height="128px" alt="">
+                    <span class="card-title">{{ user.first_name }} {{ user.last_name }}</span>
+                    <span class="card-title">Логин: {{ user.username }}</span>
+                    <span class="card-title">E-mail: {{ user.email }}</span>
+
+                </div>
+                <div class="card-action">
+                    <a href="{% url 'userFavoritesPage' %}" class="btn waves-effect waves-light blue lighten-2">Таңдаулар</a>
+                    {% if user.is_superuser %}
+                    <a href="{% url 'admin:index' %}" class="btn waves-effect waves-light yellow darken-2">Админ панель</a>
+                    {% endif %}
+                    <a href="{% url 'change_password' %}" class="btn waves-effect waves-light green lighten-2">Құпия сөз</a>
+                    <a href="{% url 'logoutUser' %}" class="btn waves-effect waves-light red lighten-2">Шығу</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+<div class="a-block" style="padding: 90px 0;">
+    <div class="card red lighten-3" style="width: 50%; margin-top: 90px; margin-bottom: 90px; margin: 0 auto;">
+    <div class="card-content">
+        <p class="grey-text text-darken-4" style="font-size: 14px;">
+            Қосымшамен жұмыс істеу үшін, тіркеліңіз немесе кіріңіз
+        </p>
+    </div>
+</div>
+</div>
+{% endif %}
+{% endblock %}
